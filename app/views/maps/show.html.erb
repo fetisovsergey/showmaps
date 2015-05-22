@@ -1,0 +1,69 @@
+<script>
+$(window).load(function(){
+  L.mapbox.accessToken = 'pk.eyJ1IjoiZmV0aXNvdnNlcmdleSIsImEiOiI0X09HSjZFIn0.aU0mwcW1UZIj5ZWVBFkRdQ';
+  var map = L.mapbox.map('map', 'examples.map-i86nkdio').setView([<%= @avg_latitude %> ,<%= @avg_longtitude %>], <%= @scale %>);
+  L.control.layers({
+    'Схема': L.mapbox.tileLayer('examples.map-i86nkdio').addTo(map),
+    'Спутник': L.mapbox.tileLayer('examples.map-igb471ik')
+  }).addTo(map);
+  map.addControl(L.mapbox.geocoderControl('mapbox.places',{autocomplete: true}));
+  map.touchZoom.disable();
+  map.scrollWheelZoom.disable();
+  var myLayer = L.mapbox.featureLayer().addTo(map);
+  var geoJson = [
+                  <% @map.markers.each do |marker| %>
+                  {
+                    type: 'Feature',
+                    "geometry": { "type": "Point", "coordinates": [<%= marker.longtitude %>,<%= marker.latitude %>]},
+                    "properties":
+                    {
+                      	"latitude": "<%= marker.latitude.round(12) %>",
+                      	"longtitude": "<%= marker.longtitude.round(12) %>",
+						"address": "<%= marker.address %>",
+						"description": "<%= marker.description %>",
+                      	"marker-symbol": "pitch",
+                        "marker-color": "#cc0033",
+                        "marker-size": "large"
+                    }
+                  },
+                <% end %>
+                ];
+  myLayer.on('layeradd', function(e) {
+	  var marker = e.layer,
+	  feature = marker.feature;
+	  var popupContent = '<h5>' + feature.properties.latitude + ',&nbsp&nbsp' + feature.properties.longtitude + '</h5>' + '<h2>' + feature.properties.address + '</h2>' + '<h4>' + feature.properties.description + '</h4>';
+	  marker.bindPopup(popupContent,{closeButton: true});
+  });
+  // Add features to the map
+  myLayer.setGeoJSON(geoJson);
+});
+$(window).unload(function(){ 
+});
+</script>
+
+<% provide(:title, 'Показать карту') %>
+<!DOCTYPE html>
+
+<body>
+	<div id="map" class="maps"></div>
+
+	<div id="markersfield">
+		<%= link_to image_tag("logo1.png", style:"width:35%;margin-bottom:15px"), root_path %>
+		<%= link_to("Добавить метку",edit_map_path,class: "btn btn-primary",id:"edit_map_button") %>
+		<section id="markers_section">
+	     <% @map.markers.each do |marker| %>
+	       <div style="margin-top:20px;position:relative;padding-right:10px">
+	        	<%= link_to image_tag("delete.png",size:"15x15",class:"delete_icon"),marker,method: :delete, data: { confirm: "Вы действительно хотите удалить метку?" } %>
+				    <h5><%= marker.latitude.round(12) %>,&nbsp&nbsp<%= marker.longtitude.round(12) %></h5>
+				    <% if !marker.address.blank? %>
+					     <h3><%= marker.address %></h3>
+				    <% end %>
+				    <h4><%= marker.description %></h4>
+				    <% if !marker.photo.url.blank? %>
+					     <%= link_to image_tag(marker.photo.url(:medium),class:"img-rounded"),marker.photo.url(:full),class: "image_gallery",rel: "gallery" %>
+				    <% end %>
+			   </div>
+	     <% end %>
+	  </section>
+	</div>
+</body>

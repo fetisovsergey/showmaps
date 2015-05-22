@@ -1,0 +1,70 @@
+<script>
+$(document).ready(function(){
+  L.mapbox.accessToken = 'pk.eyJ1IjoiZmV0aXNvdnNlcmdleSIsImEiOiI0X09HSjZFIn0.aU0mwcW1UZIj5ZWVBFkRdQ';
+  var map = L.mapbox.map('map_new', 'examples.map-i86nkdio').setView([55.764213,37.59521], 5);
+  L.control.layers({
+    'Схема': L.mapbox.tileLayer('examples.map-i86nkdio').addTo(map),
+    'Спутник': L.mapbox.tileLayer('examples.map-igb471ik')
+  }).addTo(map);
+  map.addControl(L.mapbox.geocoderControl('mapbox.places',{autocomplete: true}));
+  
+  map.touchZoom.disable();
+ 
+  var marker = L.marker([55.764213,37.59521],
+  {
+    icon: L.mapbox.marker.icon({'marker-color': '#000000','marker-symbol':'pitch','marker-size': 'large'}),
+    draggable: true
+  }).addTo(map);
+  
+  var coordinates = document.getElementById('coordinates');
+  marker.on('dragend', ondragend);
+  ondragend();
+  function ondragend() {
+    var m = marker.getLatLng();
+    coordinates.innerHTML = 'Широта: ' + m.lat + '<br />Долгота: ' + m.lng;
+  }
+  
+  //Remember position
+  $('#submit_btn').bind('click', function() {
+        var m = marker.getLatLng();
+        document.getElementById("map_latitude").value = m.lat;
+        document.getElementById("map_longtitude").value = m.lng;
+  });
+  
+  //TextArea focus
+  //$("#text_area").focus();
+
+  //PhotoButton
+  $('#photo_button').bind('click', function() {
+      $('#file_field_button').trigger('click');
+  });
+  $('#photo_button_success').bind('click', function() {
+      $('#file_field_button').trigger('click');
+  });
+  $('#file_field_button').bind('change', function() {
+     $("#photo_button").css("display", "none");
+	 $("#photo_button_success").css("display", "inline");
+  });
+  
+});
+</script>
+<% provide(:title, 'Создать карту') %>
+<!DOCTYPE html>
+<body>
+	<div id="map_new" class="maps"></div>
+	<pre id='coordinates' class='ui-coordinates'></pre>
+	<div id="add_label">
+		<h3>Добавление метки</h3>
+	  <%= form_for(@marker) do |f| %>
+   		<%= f.hidden_field :latitude, id: "map_latitude" %>
+    	<%= f.hidden_field :longtitude, id: "map_longtitude" %>		
+		  <%= f.file_field :photo, accept: 'image/png,image/gif,image/jpeg', id: "file_field_button",style:"display:none" %>
+		  <%= f.text_field :description, placeholder: "Введите название метки...",style:"width:90%", id:"text_area" %><br>
+      <%= f.submit "Добавить",style:"font-family:'lobster';font-size:16px",class: "btn btn-primary", id: "submit_btn" %>
+      <div class="btn btn-danger" id="photo_button">
+        Фото
+      </div>
+		  <%= image_tag("success.png", size: "27x27",class: "btn btn-mini btn-link",style:"display:none",id:"photo_button_success") %>
+	  <% end %>
+	</div>
+</body>

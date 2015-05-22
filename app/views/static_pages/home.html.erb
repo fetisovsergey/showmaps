@@ -1,0 +1,12 @@
+<% provide(:title, 'MapCreator') %>
+<!DOCTYPE html>
+
+<body>
+	<h2>
+		<%= image_tag("logo.png", style:"width:40%", alt: "MapBox") %><br>
+		Создай свою карту!<br>		<br>	
+		<%= link_to("Добавить карту", new_map_path, class: "btn btn-primary") %>
+		<%= link_to("Показать все карты", maps_path, class: "btn btn-primary") %>
+	</h2>
+
+</body>

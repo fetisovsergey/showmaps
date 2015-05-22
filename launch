@@ -1,0 +1,4 @@
+#!/bin/sh
+cd /dump
+rails server -p 80
+exit 0

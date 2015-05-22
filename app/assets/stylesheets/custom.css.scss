@@ -1,0 +1,257 @@
+@import "bootstrap";
+@import "bootstrap-responsive";
+/* mixins, variables, etc. */
+
+$grayMediumLight: #eaeaea;
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 40px;
+  background: #FFFFFF;
+  padding-left:0;
+  padding-right:0;
+}
+
+#main
+{
+	text-align:center;
+	background: #FFFFFF url('background.jpg') no-repeat center top;
+	background-size: cover;
+    /* Iphone5 */
+	@media only screen and (max-device-width : 640px)
+	{
+		height: 1400px
+	}
+
+	/* Iphone6 */
+	@media only screen and (max-device-width : 750px)
+	{
+		height: 1420px
+	}
+
+	/* Ipad2 */
+	@media only screen and (max-device-height : 1546px)
+	{
+		min-height: 1200px
+	}
+
+	/* Iphone6plus */
+	@media only screen and (max-device-height : 1242px)
+	{
+		min-height: 1440px
+	}
+}
+.navbar {
+	position:fixed;top:0
+}
+
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6, h7 {
+  line-height: 1;
+}
+
+h3
+{
+	font-weight:300;
+	color:#000000;
+	font-family: 'lobster';
+}
+
+h2
+{
+	font-size:1em;
+	text-align:left;
+	font-weight:300;
+	color: #000000;
+	font-family: 'lobster';
+}
+h5
+{
+	font-size:1.1em;
+	text-align:left;
+	color:$red;
+	font-family: 'moondog';
+	font-weight:500;
+}
+h6
+{
+	font-size:12vw;
+	color:#FFFFCC;
+	margin-top: 11%;
+	font-family: 'main';
+	font-weight:300;
+
+	/* Iphone5 */
+	@media only screen and (max-device-height : 640px)
+	{
+		margin-top: 30%;
+	}
+
+	/* Iphone6 */
+	@media only screen and (max-device-width : 750px)
+	{
+		margin-top: 30%;
+	}
+
+	/* Ipad2 */
+	@media only screen and (max-device-height : 1546px)
+	{
+		#margin-top: 30%;
+	}
+}
+h4
+{
+	font-size:1.2em;
+	text-align:left;
+	font-weight:300;
+	color:#000099;
+	font-family: 'lobster';
+}
+#photo_button
+{
+	font-family:'lobster';
+	font-size:16px
+}
+.maps
+{
+	margin:0;
+	position:fixed;
+	width:100%;
+    /* Iphone5 */
+	@media only screen and (max-device-width : 640px)
+	{
+		height: 1400px
+	}
+
+	/* Iphone6 */
+	@media only screen and (max-device-width : 750px)
+	{
+		height: 1420px
+	}
+
+	/* Ipad2 */
+	@media only screen and (max-device-height : 1546px)
+	{
+		min-height: 1200px
+	}
+
+	/* Iphone6plus */
+	@media only screen and (max-device-height : 1242px)
+	{
+		min-height: 1450px
+	}
+}
+
+.table
+{
+  font-size:1.1em;
+  font-weight:200;
+  color: #000000;
+}
+
+.btn
+{
+  font-weight:400;
+  margin-top:10px;
+}
+
+#add_label
+{
+	position:absolute;
+	background:rgba(0,0,0,0.5);
+	width:25%;
+	min-width:200px;
+	max-width:280px;
+	z-index:1;
+	top:135px;
+	right:10px;
+	padding:10px;
+	padding-bottom:0;
+	font-weight:300;
+	font-size:2em;
+	color:#000000;
+	text-align:center;
+	font-family: 'lobster';
+	border-radius: 5px;
+	h3
+	{
+		font-weight:300;
+		font-size: 0.7em;
+		color: #FFFFFF;
+		font-family: 'lobster';
+	}
+}
+#markersfield
+{
+	position:absolute;
+	width:25%;
+	min-width:250px;
+	max-width:370px;
+	top:135px;
+	right:10px;
+	padding:10px;
+	padding-right:0;
+	text-align:left;
+	background: #FFFFFF;
+	border:2px solid #f0f0f0;
+	.delete_icon
+	{
+		position:absolute;
+		right:10px;
+		top:0;
+		opacity:0.5;
+	}
+	.delete_icon:hover
+	{
+		opacity:1.0;
+	}
+	h3
+	{
+		font-size:1.2em;
+	}
+}
+#edit_map_button
+{
+	position:absolute;
+	top:0;
+	right:10px;
+	font-family:'lobster'
+}
+#markers_section
+{
+	
+	overflow: auto;
+	/* Iphone5 */
+	@media only screen and (min-device-height : 650px) and (max-device-height : 800px)
+	{
+		max-height: 1100px
+	}
+	@media only screen and (max-device-height : 640px)
+	{
+		max-height: 890px
+	}
+	@media only screen and (min-device-height : 810px) and (max-device-height : 1546px)
+	{
+		max-height: 900px
+	}
+}
+#coordinates
+{
+	position:fixed;
+	z-index:2;
+	bottom:0;margin:0;
+	width:100%;
+	text-align:center;
+	padding:5px;
+	color:#000000;
+	font-size:15px;
+	font-family: 'archive';
+	line-height:18px;
+}
