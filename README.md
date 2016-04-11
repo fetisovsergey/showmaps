@@ -1,3 +1,4 @@
-SHOWMAPS
-Application with geolocation
-# fetisovsergey
+# SHOWMAPs
+Приложение для создания карт
+http://www.showmaps.ru
+
